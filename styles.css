@@ -1,85 +1,83 @@
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #000000;
-    margin: 0;
-}
-
-.chat-container {
-    width: 350px;
-    background: rgb(226, 229, 229);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-}
-
-h2 {
     text-align: center;
-    color: #333;
+    background-color: #080808;
+    margin: 0;
+    padding: 20px;
 }
 
-#chat-box {
-    height: 300px;
-    overflow-y: auto;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    background: #f0eaef;
-    display: flex;
-    flex-direction: column;
-}
-
-.message {
-    padding: 8px 12px;
-    margin: 5px 0;
-    border-radius: 15px;
-    max-width: 80%;
-    word-wrap: break-word;
-    font-size: 14px;
-    position: relative;
-}
-
-.user {
-    background: #007bff;
-    color: white;
-    align-self: flex-end;
-}
-
-.friend {
-    background: #e5e5e5;
-    align-self: flex-start;
-}
-
-.timestamp {
-    font-size: 10px;
-    color: #555;
-    margin-top: 4px;
-    display: block;
-    text-align: right;
+#chat-container {
+    display: none;
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .input-container {
     display: flex;
-    gap: 10px;
+    margin-top: 10px;
 }
 
 input {
-    flex-grow: 1;
+    flex: 1;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 5px;
 }
 
 button {
-    padding: 8px;
-    background: blue;
+    padding: 8px 15px;
+    margin-left: 5px;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#chat-box {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.message {
+    padding: 8px;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+.user {
+    background: #007bff;
+    color: white;
+    text-align: right;
+}
+
+.friend {
+    background: #ddd;
+    text-align: left;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.delete-btn:hover {
+    background-color: #ff1a1a;
 }
