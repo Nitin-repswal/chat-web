@@ -1,8 +1,7 @@
-// Import Firebase modules (Firebase v9+)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-// Your Firebase Configuration
+// Firebase Configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDZv9cr4dl1GkdMI6uzrJnY76jNoIY_jXw",
     authDomain: "chat-website-6c6ab.firebaseapp.com",
@@ -17,6 +16,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const dbRef = ref(database, "messages");
+
+// Secret Key (Change This)
+const secretKey = "friend123"; 
+
+// Function to check access
+window.checkAccess = function () {
+    const enteredKey = document.getElementById("secret-key").value.trim();
+    if (enteredKey === secretKey) {
+        document.getElementById("access-section").style.display = "none";
+        document.getElementById("chat-container").style.display = "block";
+    } else {
+        alert("Access Denied! Wrong secret key.");
+    }
+};
 
 // Get or Set Username
 let username = localStorage.getItem("chat_username") || "";
@@ -73,6 +86,17 @@ onChildAdded(dbRef, (snapshot) => {
 
     // Set message text
     msgDiv.innerHTML = `<strong>${msgData.user}</strong>: ${msgData.text} <span class="timestamp">${msgData.timestamp}</span>`;
+
+    // Create Delete Button
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.onclick = () => {
+        msgDiv.remove(); // Remove message from user's view only
+    };
+
+    // Append Delete Button to Message Div
+    msgDiv.appendChild(deleteBtn);
 
     // Append to chat box
     chatBox.appendChild(msgDiv);
