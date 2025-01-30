@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat with Friend</title>
+    <title>Secure Chat</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="chat-container">
+    <!-- Access Section -->
+    <div id="access-section">
+        <input type="text" id="secret-key" placeholder="Enter your secret key" />
+        <button onclick="checkAccess()">Enter</button>
+    </div>
+
+    <!-- Chat Section (Hidden Initially) -->
+    <div id="chat-container" style="display: none;">
         <h2>Chat with Friend</h2>
-        
+
         <!-- Username Input -->
         <div id="username-section">
             <input type="text" id="username" placeholder="Enter your name..." />
             <button onclick="saveUsername()">Set Name</button>
         </div>
 
+        <!-- Chat Messages -->
         <div id="chat-box"></div>
 
+        <!-- Message Input -->
         <div class="input-container">
             <input type="text" id="message" placeholder="Type a message..." />
             <button onclick="sendMessage()">Send</button>
