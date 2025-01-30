@@ -18,23 +18,65 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const dbRef = ref(database, "messages");
 
+// Get or Set Username
+let username = localStorage.getItem("chat_username") || "";
+
+// Function to Save Username
+window.saveUsername = function () {
+    const usernameInput = document.getElementById("username").value.trim();
+    if (usernameInput) {
+        username = usernameInput;
+        localStorage.setItem("chat_username", username);
+        document.getElementById("username-section").style.display = "none";
+    }
+};
+
+// Hide Username Input If Already Set
+if (username) {
+    document.getElementById("username-section").style.display = "none";
+}
+
 // Send Message
 window.sendMessage = function () {
+    if (!username) {
+        alert("Please set a username first!");
+        return;
+    }
+
     const messageInput = document.getElementById("message");
     const message = messageInput.value.trim();
+
     if (message) {
-        push(dbRef, { text: message })
+        push(dbRef, { user: username, text: message, timestamp: new Date().toLocaleTimeString() })
             .then(() => console.log("Message sent!"))
             .catch(error => console.error("Error sending message:", error));
+
         messageInput.value = "";
     }
 };
 
 // Display Messages
 onChildAdded(dbRef, (snapshot) => {
-    const msg = snapshot.val().text;
+    const msgData = snapshot.val();
     const chatBox = document.getElementById("chat-box");
-    const p = document.createElement("p");
-    p.textContent = msg;
-    chatBox.appendChild(p);
+
+    // Create a message div
+    const msgDiv = document.createElement("div");
+    msgDiv.classList.add("message");
+
+    // Determine if the message is from the user or a friend
+    if (msgData.user === username) {
+        msgDiv.classList.add("user");
+    } else {
+        msgDiv.classList.add("friend");
+    }
+
+    // Set message text
+    msgDiv.innerHTML = `<strong>${msgData.user}</strong>: ${msgData.text} <span class="timestamp">${msgData.timestamp}</span>`;
+
+    // Append to chat box
+    chatBox.appendChild(msgDiv);
+
+    // Auto-scroll to the latest message
+    chatBox.scrollTop = chatBox.scrollHeight;
 });
