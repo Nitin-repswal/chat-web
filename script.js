@@ -87,16 +87,7 @@ onChildAdded(dbRef, (snapshot) => {
     // Set message text
     msgDiv.innerHTML = `<strong>${msgData.user}</strong>: ${msgData.text} <span class="timestamp">${msgData.timestamp}</span>`;
 
-    // Create Delete Button
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete";
-    deleteBtn.classList.add("delete-btn");
-    deleteBtn.onclick = () => {
-        msgDiv.remove(); // Remove message from user's view only
-    };
 
-    // Append Delete Button to Message Div
-    msgDiv.appendChild(deleteBtn);
 
     // Append to chat box
     chatBox.appendChild(msgDiv);
